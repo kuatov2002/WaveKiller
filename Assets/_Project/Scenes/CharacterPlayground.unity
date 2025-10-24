@@ -4263,6 +4263,18 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackAngle
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackCooldown
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6395,6 +6407,18 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackAngle
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackCooldown
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8262,6 +8286,18 @@ PrefabInstance:
     - target: {fileID: 7126260659877615997, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackAngle
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackCooldown
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10681,6 +10717,18 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackAngle
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackCooldown
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11144,6 +11192,18 @@ PrefabInstance:
     - target: {fileID: 7126260659877615997, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackAngle
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackCooldown
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19148,6 +19208,18 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackAngle
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackCooldown
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -23969,6 +24041,18 @@ PrefabInstance:
     - target: {fileID: 7126260659877615997, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackAngle
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackCooldown
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -34937,6 +35021,18 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackAngle
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackCooldown
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -38336,6 +38432,18 @@ PrefabInstance:
     - target: {fileID: 7126260659877615997, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackAngle
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackCooldown
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -49822,6 +49930,18 @@ PrefabInstance:
     - target: {fileID: 7126260659877615997, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackAngle
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654546072170222586, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
+      propertyPath: attackCooldown
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
