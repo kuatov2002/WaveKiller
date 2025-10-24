@@ -4943,7 +4943,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: AstarPathfindingProject::AstarPath
   version: 1073741824
   data:
-    dataString: UEsDBBQAAAgIAAAwIewOxWuXUgIAAKQEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFtU01v2zAM/SuBz2uQxE1S97gk6w79GJICKzrswMiMLVSWMklOmhb97yNl2fHQ+SL4kY/iI5/eE1GCBeHRriGXtUuuB6Ph9MsgEUZ7U9s7eF1ZayzhE0ZRqY18wy7tCOoFtgq/oyxKH7NacKFkte1SK3jdKLNnbjpq/ld5gbeoC18yM4BSr7GQRsdbUsIwl97YR6kwguPJFcE+Ak+fkOcOqR0yj2V5WyMhe7S3cEJ7Z3K5kwI83cXhX78pmMsKtSOEonxRsmyBdJlQfAvipbCm1vmjhQNaB1uppD9x6s8omvMsKjyA9jcW9uWmtjsQ2JU098av8U8tbcgVRikU3MYGvZe64G7ee3BLDG07pqggANwLZw6SA6iaM2bp4IOnAEWMBU0WHG2XprKgijLnEteDHSiH/eAdurI/pi7wiNaC1P+LWOwzfJPYGKGC/dIctYNqr0jSN3JY8FAaBXMf67bQEj1IxTujqNGLRnnXka6VYl3W+LCtRvQr+4rQUzzf+Az6d8YKzL/yltwCNd1xZlxMZsM0oy/NIndyNczm6eRyPo1FxtPh9FOdaLxYJR21N8+yYTpPWyrhgelKc+T2H2pP6vE8Iw7c0zoXRutmuf1ltLRomDNNI1h0fkOHKB+0Oj0992io2Xb3cKiIu6iDh87copb5vzZJ5tNsDkJcjmcgxpDhxSiFdLLLx3gF2RamkAQVUksvQf2g+sq3Y6b32/OChipUXKOgZQ6C3dmguYXjjXyrTM8fUu/MRpBn9ENTo5NNJgBFA85X4aH3nkHy/pF8/AVQSwMEFAAACAgAADAh7Pd2kwluAAAAeQAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw1TPUM9JRUEovSizIKAYKGII4pZkpIHa0krmppXlicrKJoVlismGiZaqugXGisVFaimGqRaJlUqJpolIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrpeUGpyYnGJO8hwpdhaAFBLAQItABQAAAgIAAAwIewOxWuXUgIAAKQEAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAwIez3dpMJbgAAAHkAAAAJACQAAAAAAAAAAAAAAJ8CAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAWAMAAAAA
+    dataString: UEsDBBQAAAgIAAAwIeyH6uOZUQIAAKUEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFtU01vIjEM/StozlsEpECnx4Vu99CPFVTaqqs9mIyZiZpJ2CQDpVX/e+2Qgam6XCKe/Ww/+81bJitwIAO6BRSq8dllb9Aff+tl0ppgG3cLL1fOWUf4iFHUeqle8Zi2A/0MK40/UZVVSFktONOqXh1Ta3hZarthrhgc/l8VJd6gKUPFzAgqs8BSWZO6CMKwUMG6B6UxgcPRBcEhAY9fkKcj0nhkHssKrkFCNuhuYI/u1hZqrSQE6sXhP38pWKgajSeEotwom7eAmGcUX4F8Lp1tTPHgYIvOw0ppFfac+juJ5jyHGrdgwrWDTbVs3BokHkvaOxsW+K9RLuZKqzVKHmOJIShT8jRvHbglxrE9U3QUAP6ZM3vZFnTDGRPRe+ctQJliUZMDT9elrcyooiq4xGVvDdpjN3iLvuqu6Rh4QOdAmf9FHHYZ4ZB4MEINm7ndGQ/1RpOkH+Sw6CGRBPMci7bQHAMozTejqDWzg/LjRKbRmnU5G+K1DqJf2FeE7tP7ym/Uv7ZOYvGdr+RnaKjHiXE2mvRFTj+RJ+7oop9Pxeh8Ok5FhuP++EudZLxURQzazpO8L6aipRIemb6yOx7/vgmkHk874sAdnXNmjTkct3uMlpYMc6IZBIc+LOmR1b3R+8enDg0N2+4OtjVxZ0300IlbNqr4bJNsOs6nIOX5cAJyCDmeDQSI0boY4gXkKxhDFlUoo4IC/Yvq69Cumb5f0+ltoI4lFyjpmr3od3Zo4WB3rV5r2zGIMmu7lGQac/+5iCcXgKYNF1fxS+98B9nbe/b+AVBLAwQUAAAICAAAMCHs93aTCW4AAAB5AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDVM9Qz0lFQSi9KLMgoBgoYgjilmSkgdrSSuamleWJysomhWWKyYaJlqq6BcaKxUVqKYapFomVSommiUixQfUllQapfYm4qRE9AYklGWmZeSmZeul5QanJicYk7yHCl2FoAUEsBAi0AFAAACAgAADAh7Ifq45lRAgAApQQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAADAh7Pd2kwluAAAAeQAAAAkAJAAAAAAAAAAAAAAAngIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABXAwAAAAA=
     file_cachedStartup: {fileID: 0}
     cacheStartup: 0
   showNavGraphs: 1
@@ -4954,7 +4954,7 @@ MonoBehaviour:
   manualDebugFloorRoof: 0
   showSearchTree: 0
   unwalkableNodeDebugSize: 0.3
-  logPathResults: 1
+  logPathResults: 0
   maxNearestNodeDistance: 100
   scanOnStartup: 1
   fullGetNearestSearch: 0
@@ -36273,7 +36273,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620711535}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3249008, y: 0.6280442, z: -0.3249009, w: 0.62804407}
+  m_LocalRotation: {x: 0.32490084, y: 0.62804425, z: -0.32490093, w: 0.6280441}
   m_LocalPosition: {x: -52.71498, y: 29.128742, z: -28.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -50003,6 +50003,7 @@ GameObject:
   - component: {fileID: 6505057340831361182}
   - component: {fileID: 6508550501183087757}
   - component: {fileID: 6508550501183087758}
+  - component: {fileID: 6508550501183087759}
   m_Layer: 9
   m_Name: ExampleCharacter
   m_TagString: Player
@@ -50060,6 +50061,20 @@ CapsuleCollider:
   m_Height: 2.1
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &6508550501183087759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6508550501183087756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b7528febc9a2994cb264eebc551c6da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainCharacter
+  maxHp: 100
+  currentHp: 100
 --- !u!1 &6508613561215324218
 GameObject:
   m_ObjectHideFlags: 0
