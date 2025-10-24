@@ -8,7 +8,6 @@ public class EnemyManager : MonoBehaviour
 
     [Header("Raycast / Placement")]
     public LayerMask placementMask = ~0;
-    public float maxRayDistance = 100f;
 
     [Header("Marker (runtime)")]
     public float markerLifetime = 3f;
@@ -20,7 +19,7 @@ public class EnemyManager : MonoBehaviour
     public Color gizmoColor = new Color(1f, 0.6f, 0.0f, 0.8f);
     public float gizmoRadius = 0.4f;
 
-    private int selectedEnemyIndex = -1; // -1 = ничего не выбрано
+    private int selectedEnemyIndex = 0;
     private List<Vector3> clickedPositions = new List<Vector3>();
 
     void Update()
@@ -54,14 +53,8 @@ public class EnemyManager : MonoBehaviour
 
     void TryRegisterClick()
     {
-        if (selectedEnemyIndex == -1)
-        {
-            Debug.LogWarning("[EnemyManager] No enemy selected! Press 1/2/3 to choose one.");
-            return;
-        }
-
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, maxRayDistance, placementMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000f, placementMask))
         {
             Vector3 pos = hit.point;
             clickedPositions.Add(pos);
