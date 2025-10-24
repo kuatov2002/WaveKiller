@@ -36444,7 +36444,6 @@ GameObject:
   - component: {fileID: 1620711537}
   - component: {fileID: 1620711536}
   - component: {fileID: 1620711538}
-  - component: {fileID: 1620711539}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -36473,7 +36472,7 @@ MonoBehaviour:
   m_LegacyPriority: 0
   Target:
     TrackingTarget: {fileID: 6505057340831361182}
-    LookAtTarget: {fileID: 6505057340831361182}
+    LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 1
   Lens:
     FieldOfView: 75
@@ -36504,7 +36503,7 @@ Transform:
   m_GameObject: {fileID: 1620711535}
   serializedVersion: 2
   m_LocalRotation: {x: 0.32486162, y: 0.6280645, z: -0.32486174, w: 0.62806433}
-  m_LocalPosition: {x: -26.62611, y: 29.128178, z: -28.119995}
+  m_LocalPosition: {x: -17.878595, y: 28.241364, z: -28.119997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -36525,7 +36524,7 @@ MonoBehaviour:
   CameraDistance: 10
   DeadZoneDepth: 0
   Composition:
-    ScreenPosition: {x: 0, y: 0.1}
+    ScreenPosition: {x: 0, y: 0}
     DeadZone:
       Enabled: 1
       Size: {x: 0.2, y: 0.2}
@@ -36534,37 +36533,8 @@ MonoBehaviour:
       Size: {x: 0.8, y: 0.8}
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
-  TargetOffset: {x: 0, y: 20, z: -10}
+  TargetOffset: {x: 0, y: 20, z: 0}
   Damping: {x: 1, y: 1, z: 1}
-  Lookahead:
-    Enabled: 0
-    Time: 0
-    Smoothing: 0
-    IgnoreY: 0
---- !u!114 &1620711539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1620711535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f38bda98361e1de48a4ca2bd86ea3c17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineRotationComposer
-  Composition:
-    ScreenPosition: {x: 0, y: 0.1}
-    DeadZone:
-      Enabled: 0
-      Size: {x: 0.2, y: 0.2}
-    HardLimits:
-      Enabled: 0
-      Size: {x: 0.8, y: 0.8}
-      Offset: {x: 0, y: 0}
-  CenterOnActivate: 1
-  TargetOffset: {x: 0, y: 0, z: 0}
-  Damping: {x: 0.5, y: 0.5}
   Lookahead:
     Enabled: 0
     Time: 0
@@ -49955,7 +49925,7 @@ Transform:
   m_GameObject: {fileID: 5572022742420398803}
   serializedVersion: 2
   m_LocalRotation: {x: 0.32486162, y: 0.6280645, z: -0.32486174, w: 0.62806433}
-  m_LocalPosition: {x: -26.62611, y: 29.128178, z: -28.119995}
+  m_LocalPosition: {x: -17.878595, y: 28.241364, z: -28.119997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -50329,7 +50299,7 @@ MonoBehaviour:
   startWhenEnabled: 1
   asynchronousLoad: 0
   pauseWhenDisabled: 0
-  restartWhenComplete: 0
+  restartWhenComplete: 1
   logTaskChanges: 0
   group: 0
   resetValuesOnRestart: 0
@@ -50342,12 +50312,12 @@ MonoBehaviour:
       parentIndex: 
       startIndex: 
       variableStartIndex: 
-      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(106.53804,757.332947)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Repeater","NodeData":{"Offset":"(-78.88887,203.33374)"},"ID":1,"Name":"Repeater","Instant":true,"SharedIntcount":{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":null,"Int32mValue":12084},"SharedBoolrepeatForever":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":true},"SharedBoolendOnFailure":{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":null,"BooleanmValue":false},"Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-11.0912476,210.68042)"},"ID":2,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"FindClosestEnemy","NodeData":{"Offset":"(-110,110)","WatchedFields":["closestEnemy"]},"ID":3,"Name":"Find
-        Closest Enemy","Instant":true,"SharedGameObjectclosestEnemy":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"ClosestEnemy","IsShared":true,"IsDynamic":true},"SharedFloatdetectionRadius":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":20}},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(260,120)"},"ID":4,"Name":"Engage","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"HasClosestEnemy","NodeData":{"Offset":"(-84.51612,195.160446)"},"ID":5,"Name":"Has
-        Closest Enemy","Instant":true,"SharedGameObjectclosestEnemy":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"ClosestEnemy","IsShared":true,"IsDynamic":true}},{"Type":"MoveToEnemy","NodeData":{"Offset":"(74.0294,195.705887)"},"ID":6,"Name":"Move
-        To Enemy","Instant":true,"SharedGameObjectclosestEnemy":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"ClosestEnemy","IsShared":true,"IsDynamic":true},"Singlespeed":4},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(290.641663,200.16037)"},"ID":7,"Name":"Attack","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"IsInAttackRange","NodeData":{"Offset":"(-68.15338,202.3778)"},"ID":8,"Name":"Is
-        In Attack Range","Instant":true,"SharedGameObjectclosestEnemy":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"ClosestEnemy","IsShared":true,"IsDynamic":true},"SingleattackRange":2},{"Type":"AttackEnemy","NodeData":{"Offset":"(73.81429,195.000549)"},"ID":9,"Name":"Attack
-        Enemy","Instant":true,"SharedGameObjectclosestEnemy":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"ClosestEnemy","IsShared":true,"IsDynamic":true},"Singledamage":10,"SingleattackCooldown":1}]}]}]}]},"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"ClosestEnemy","IsShared":true,"IsDynamic":true}]}'
+      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(106.53804,757.332947)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-20,270)"},"ID":1,"Name":"Engage","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"FindClosestEnemy","NodeData":{"Offset":"(-360,180)","WatchedFields":["closestEnemy"]},"ID":2,"Name":"Find
+        Closest Enemy","Instant":true,"SharedGameObjectclosestEnemy":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"ClosestEnemy","IsShared":true,"IsDynamic":true},"SharedFloatdetectionRadius":{"Type":"BehaviorDesigner.Runtime.SharedFloat","Name":null,"SinglemValue":20}},{"Type":"HasClosestEnemy","NodeData":{"Offset":"(-151.18277,178.493774)"},"ID":3,"Name":"Has
+        Closest Enemy","Instant":true,"SharedGameObjectclosestEnemy":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"ClosestEnemy","IsShared":true,"IsDynamic":true}},{"Type":"MoveToEnemy","NodeData":{"Offset":"(7.362747,179.039215)"},"ID":4,"Name":"Move
+        To Enemy","Instant":true,"SharedGameObjectclosestEnemy":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"ClosestEnemy","IsShared":true,"IsDynamic":true},"Singlespeed":4,"SingledetectionRadius":2,"SinglefacingAngleThreshold":10,"BooleanrotateTowardsEnemy":true},{"Type":"IsInAttackRange","NodeData":{"Offset":"(160,200)"},"ID":5,"Name":"Is
+        In Attack Range","Instant":true,"SharedGameObjectclosestEnemy":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"ClosestEnemy","IsShared":true,"IsDynamic":true},"SingleattackRange":3,"SingleattackAngle":90},{"Type":"AttackEnemy","NodeData":{"Offset":"(310,180)"},"ID":6,"Name":"Attack
+        Enemy","Instant":true,"SharedGameObjectclosestEnemy":{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"ClosestEnemy","IsShared":true,"IsDynamic":true},"Singledamage":10,"SingleattackCooldown":0.6,"SingleattackDuration":0.2}]},"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"ClosestEnemy","IsShared":true,"IsDynamic":true}]}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
