@@ -251,3 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   currentHp: 10
   damage: 10
+  attackRadius: 2
+  attackAngle: 60
+  attackCooldown: 2
+  attackDelay: 0.2
