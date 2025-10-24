@@ -1,9 +1,9 @@
-using System;
 using Pathfinding;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable
 {
+    public float currentHp = 10f;
     public float damage = 10f;
     private AIDestinationSetter destinationSetter;
     private void Start()
@@ -17,7 +17,21 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<IDamageable>()?.TakeDamage(damage);
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHp -= damage;
+        if (currentHp <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }
