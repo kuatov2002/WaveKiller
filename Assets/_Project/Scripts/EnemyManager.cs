@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [System.Serializable]
@@ -10,6 +12,8 @@ public class EnemyData
 
 public class EnemyManager : MonoBehaviour
 {
+    public TextMeshProUGUI moneyText;
+    
     [Header("Enemies")]
     public List<EnemyData> enemies = new(); // Теперь каждая запись содержит префаб + стоимость
     public int money = 100; // начальные деньги (можно настроить)
@@ -29,6 +33,11 @@ public class EnemyManager : MonoBehaviour
 
     private int selectedEnemyIndex = 0;
     private List<Vector3> clickedPositions = new();
+
+    private void Start()
+    {
+        moneyText.text = $"Money: {money}";
+    }
 
     void Update()
     {
@@ -114,11 +123,13 @@ public class EnemyManager : MonoBehaviour
     public void AddMoney(int amount)
     {
         money += amount;
+        moneyText.text = $"Money: {money}";
     }
 
     public void SpendMoney(int amount)
     {
         money -= amount;
+        moneyText.text = $"Money: {money}";
     }
 
     public void ClearClickedPositions()
