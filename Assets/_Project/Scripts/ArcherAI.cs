@@ -1,5 +1,6 @@
 using UnityEngine;
 using Pathfinding;
+using System.Collections;
 
 public class ArcherAI : MonoBehaviour, IDamageable
 {
@@ -10,16 +11,19 @@ public class ArcherAI : MonoBehaviour, IDamageable
     [Header("Shooting")]
     public float damage = 5f;
     public float fireRate = 2f;
-    public float arrowSpeed = 30f; // Скорость стрелы
+    public float arrowSpeed = 30f;
+    public float attackDelay = 1f; // Задержка между началом анимации атаки и выпуском стрелы
 
     [Header("References")]
-    public GameObject arrowPrefab; // Префаб стрелы
-    public Transform shootPoint;   // Точка выстрела (пустой объект в руках/луке)
+    public GameObject arrowPrefab;
+    public Transform shootPoint;
+    public Animator animator; // Ссылка на Animator
 
     private Transform player;
     private RichAI richAI;
     private AIDestinationSetter destinationSetter;
     private float lastShotTime;
+    private bool isAttacking = false;
 
     void Start()
     {
@@ -36,29 +40,36 @@ public class ArcherAI : MonoBehaviour, IDamageable
         destinationSetter = GetComponent<AIDestinationSetter>();
         if (destinationSetter != null)
             destinationSetter.target = player;
-            
+
         if (arrowPrefab == null)
             Debug.LogError("Arrow prefab is not assigned!");
 
         if (shootPoint == null)
             Debug.LogError("Shoot point is not assigned!");
+
+        if (animator == null)
+            animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        if (player == null) return;
+        if (player == null || isAttacking) return;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
+        // Обновляем параметр скорости для аниматора
+        float currentSpeed = richAI.desiredVelocity.magnitude;
+        animator?.SetFloat("Speed", currentSpeed);
+
         if (distanceToPlayer <= maxAttackRange)
         {
-            // Повернуть арчера к игроку (опционально, если нужно)
-            transform.LookAt(new Vector3(player.position.x, transform.position.y, player.position.z));
+            // Повернуть к игроку (игнорируя Y)
+            Vector3 lookPos = new Vector3(player.position.x, transform.position.y, player.position.z);
+            transform.LookAt(lookPos);
 
             if (Time.time - lastShotTime >= fireRate)
             {
-                Shoot();
-                lastShotTime = Time.time;
+                StartCoroutine(AttackRoutine());
             }
 
             richAI.canMove = false;
@@ -69,40 +80,48 @@ public class ArcherAI : MonoBehaviour, IDamageable
         }
     }
 
+    IEnumerator AttackRoutine()
+    {
+        isAttacking = true;
+        lastShotTime = Time.time;
+
+        // Запускаем анимацию атаки
+        animator?.SetTrigger("Attack");
+
+        // Ждём заданную задержку перед выпуском стрелы
+        yield return new WaitForSeconds(attackDelay);
+
+        Shoot();
+
+        isAttacking = false;
+    }
+
     void Shoot()
     {
         Debug.Log("Archer shoots!");
 
         if (arrowPrefab == null || shootPoint == null || player == null) return;
 
-        // Горизонтальное расстояние (игнорируем высоту)
         Vector3 toPlayer = player.position - shootPoint.position;
-        float horizontalDistance = new Vector3(toPlayer.x, 0, toPlayer.z).magnitude;
-
-        // Направление в горизонтальной плоскости (без Y)
         Vector3 flatDirection = new Vector3(toPlayer.x, 0, toPlayer.z).normalized;
+        float horizontalDistance = flatDirection.magnitude == 0 ? toPlayer.magnitude : flatDirection.magnitude * toPlayer.magnitude;
 
-        // Чем дальше — тем выше подъём (линейно или по кривой)
-        // Настрой параметры под свои нужды
-        float upFactor = Mathf.Clamp(horizontalDistance * 0.2f, 5f, 20f); // Пример: от 5 до 20
-
-        // Итоговая начальная скорость
+        // Настройка траектории
+        float upFactor = Mathf.Clamp(horizontalDistance * 0.2f, 5f, 20f);
         Vector3 launchVelocity = flatDirection * arrowSpeed + Vector3.up * upFactor;
 
-        // Создаём стрелу
         GameObject arrowInstance = Instantiate(arrowPrefab, shootPoint.position, Quaternion.LookRotation(launchVelocity));
         Rigidbody rb = arrowInstance.GetComponent<Rigidbody>();
 
         if (rb != null)
         {
-            rb.linearVelocity = launchVelocity;
+            rb.linearVelocity = launchVelocity; // Используем .velocity вместо linearVelocity (Unity стандарт)
         }
         else
         {
             Debug.LogError("Arrow prefab must have a Rigidbody!");
         }
 
-        // Передаём урон
         Arrow arrowScript = arrowInstance.GetComponent<Arrow>();
         if (arrowScript != null)
         {
@@ -127,6 +146,7 @@ public class ArcherAI : MonoBehaviour, IDamageable
         Gizmos.color = original;
     }
 #endif
+
     public void TakeDamage(float damage)
     {
         Die();

@@ -5606,7 +5606,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64311322563366150, guid: eca7ededb3db2234c90bef2213ce5799, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -32365,7 +32366,7 @@ MonoBehaviour:
     cost: 10
   - prefab: {fileID: 4001739007572971688, guid: d95e0f680aa21ba4a95600ba914d3791, type: 3}
     cost: 15
-  money: 100
+  money: 99999
   placementMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -37426,7 +37427,7 @@ Transform:
   m_GameObject: {fileID: 1620711535}
   serializedVersion: 2
   m_LocalRotation: {x: 0.32486162, y: 0.6280645, z: -0.32486174, w: 0.62806433}
-  m_LocalPosition: {x: 3.221405, y: 28.241364, z: -26.679996}
+  m_LocalPosition: {x: 3.2214038, y: 18.241364, z: -26.679996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37456,7 +37457,7 @@ MonoBehaviour:
       Size: {x: 0.8, y: 0.8}
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
-  TargetOffset: {x: 0, y: 20, z: 0}
+  TargetOffset: {x: 0, y: 10, z: 0}
   Damping: {x: 1, y: 1, z: 1}
   Lookahead:
     Enabled: 0
@@ -50936,7 +50937,7 @@ Transform:
   m_GameObject: {fileID: 5572022742420398803}
   serializedVersion: 2
   m_LocalRotation: {x: 0.32486162, y: 0.6280645, z: -0.32486174, w: 0.62806433}
-  m_LocalPosition: {x: 3.221405, y: 28.241364, z: -26.679996}
+  m_LocalPosition: {x: 3.2214038, y: 18.241364, z: -26.679996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -51029,6 +51030,10 @@ PrefabInstance:
     - target: {fileID: 4001739007572971688, guid: d95e0f680aa21ba4a95600ba914d3791, type: 3}
       propertyPath: m_Name
       value: Archer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001739007572971688, guid: d95e0f680aa21ba4a95600ba914d3791, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8964306785450894880, guid: d95e0f680aa21ba4a95600ba914d3791, type: 3}
       propertyPath: target
