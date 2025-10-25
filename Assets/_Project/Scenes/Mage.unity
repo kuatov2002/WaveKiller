@@ -32991,6 +32991,8 @@ MonoBehaviour:
     cost: 10
   - prefab: {fileID: 4001739007572971688, guid: d95e0f680aa21ba4a95600ba914d3791, type: 3}
     cost: 15
+  - prefab: {fileID: 7126260659877615997, guid: 0e0fe644469d87541abe525759b2350c, type: 3}
+    cost: 25
   money: 99999
   placementMask:
     serializedVersion: 2
