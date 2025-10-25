@@ -4,21 +4,32 @@ using BehaviorDesigner.Runtime.Tasks;
 
 public class AttackEnemy : Action
 {
+    public SharedGameObject geometry;
     public SharedGameObject closestEnemy;
     public float damage = 10f;
-    public float attackCooldown = 1f;
-    public float attackDuration = 0.2f; // Время, в течение которого задача будет в состоянии Running после атаки
+    public float attackCooldown = 1.66f;
+
+    public float attackDelay = 0.75f;
+    public float postDelay = 0.91666f;
 
     private float lastAttackTime;
-    private float attackStartTime;
+    private float phaseStartTime;
     private Animator animator;
     private bool hasTriggered;
-    private string _attackTrigger = "Attack";
+    private int currentPhase; // 0 = idle, 1 = attack, 2 = post
+
+    private const string _attackTrigger = "Attack";
 
     public override void OnStart()
     {
-        animator = GetComponent<Animator>();
+        animator = geometry.Value != null ? geometry.Value.GetComponent<Animator>() : null;
+        if (animator == null)
+        {
+            Debug.LogWarning("Animator not found on 'geometry' object!");
+        }
+
         hasTriggered = false;
+        currentPhase = 0;
     }
 
     public override TaskStatus OnUpdate()
@@ -26,35 +37,45 @@ public class AttackEnemy : Action
         if (closestEnemy.Value == null)
             return TaskStatus.Failure;
 
-        // Проверяем, прошёл ли cooldown
-        if (!hasTriggered && Time.time - lastAttackTime >= attackCooldown)
+        // Ждём окончания cooldown перед началом новой атаки
+        if (currentPhase == 0 && Time.time - lastAttackTime >= attackCooldown)
         {
-            //animator.SetTrigger(_attackTrigger);
-            lastAttackTime = Time.time;
-            attackStartTime = Time.time;
+            // Сразу запускаем атаку (без pre-delay)
+            animator?.SetTrigger(_attackTrigger);
             hasTriggered = true;
+            currentPhase = 1;
+            phaseStartTime = Time.time;
         }
 
-        // Если атака уже запущена, ждём завершения задержки
-        if (hasTriggered)
+        // Фаза 1: Ожидание основной атаки (attackDelay), затем наносим урон
+        if (currentPhase == 1)
         {
-            if (Time.time - attackStartTime >= attackDuration)
+            if (Time.time - phaseStartTime >= attackDelay)
             {
                 closestEnemy.Value.GetComponent<IDamageable>()?.TakeDamage(damage);
-                return TaskStatus.Success; // Атака завершена
+                currentPhase = 2;
+                phaseStartTime = Time.time;
             }
-            else
+            return TaskStatus.Running;
+        }
+
+        // Фаза 2: Восстановление (post-delay)
+        if (currentPhase == 2)
+        {
+            if (Time.time - phaseStartTime >= postDelay)
             {
-                return TaskStatus.Running; // Ждём окончания анимации/задержки
+                lastAttackTime = Time.time;
+                return TaskStatus.Success;
             }
         }
 
-        // На случай, если cooldown ещё не прошёл (редко, но возможно при частых вызовах)
         return TaskStatus.Running;
     }
 
     public override void OnEnd()
     {
+        // Сброс состояния при прерывании
         hasTriggered = false;
+        currentPhase = 0;
     }
 }
