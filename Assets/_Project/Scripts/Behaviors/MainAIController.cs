@@ -1,8 +1,12 @@
+using MoreMountains.Feedbacks;
 using UnityEngine;
 using Pathfinding;
 
 public class MainAIController : MonoBehaviour
 {
+    [Header("Feedbacks")]
+    public MMFeedbacks hitFeedback;
+    
     // === Настройки ===
     [Header("Detection")]
     public float detectionRadius = 30f;
@@ -27,7 +31,6 @@ public class MainAIController : MonoBehaviour
     // === Внутренние состояния ===
     private float lastAttackTime;
     private bool isAttacking = false;
-
     void Start()
     {
         richAI = GetComponent<RichAI>();
@@ -165,7 +168,11 @@ public class MainAIController : MonoBehaviour
         if (!IsEnemyValid()) return;
 
         IDamageable damageable = closestEnemy.GetComponent<IDamageable>();
-        damageable?.TakeDamage(damage);
+        if (damageable != null)
+        {
+            damageable.TakeDamage(damage);
+            hitFeedback?.PlayFeedbacks(); // например, звук удара или частицы от AI
+        }
     }
 
     public void OnAttackAnimationFinished()
