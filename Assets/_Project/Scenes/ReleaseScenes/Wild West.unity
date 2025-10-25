@@ -8832,6 +8832,7 @@ GameObject:
   m_Component:
   - component: {fileID: 549248328}
   - component: {fileID: 549248327}
+  - component: {fileID: 549248329}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -8885,6 +8886,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &549248329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549248326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc8f0e298b36564b9fd50866a821e71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RandomEnemyIndicatorSpawner
+  indicatorPrefab: {fileID: 7804542504622789442, guid: 18bc40181d8bc884fbef2dd2b08f96e1, type: 3}
+  spawnInterval: 3
+  heightOffset: 25
 --- !u!1 &556801173
 GameObject:
   m_ObjectHideFlags: 0
@@ -12856,8 +12872,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b7528febc9a2994cb264eebc551c6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainCharacter
-  maxHp: 100
-  currentHp: 100
+  maxHp: 1000
+  currentHp: 1000
   hp: {fileID: 514437682}
 --- !u!136 &856407011
 CapsuleCollider:
