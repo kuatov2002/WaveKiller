@@ -11,15 +11,19 @@ public class Enemy : MonoBehaviour, IDamageable
     public float attackCooldown = 3f;
     public float attackDelay = 0.5f;
 
+    private RichAI aiPath;
     private AIDestinationSetter destinationSetter;
     private Transform player;
     private float lastAttackTime;
     private bool isAttacking = false;
+    [SerializeField] private Animator animator; // <-- добавлено
 
     private void Start()
     {
+        aiPath = GetComponent<RichAI>();
         destinationSetter = GetComponent<AIDestinationSetter>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        
         if (destinationSetter != null && player != null)
         {
             destinationSetter.target = player;
@@ -30,7 +34,18 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         if (player == null || isAttacking) return;
 
-        if (CanSeePlayer() && Vector3.Distance(transform.position, player.position) <= attackRadius)
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        bool inAttackRange = distanceToPlayer <= attackRadius && CanSeePlayer();
+
+        // Управление скоростью анимации ходьбы
+        if (animator != null)
+        {
+            // Скорость движения — можно использовать реальную скорость, но здесь упрощённо:
+            float speed = inAttackRange ? 0f : aiPath.maxSpeed; // останавливаемся при атаке
+            animator.SetFloat("Speed", speed);
+        }
+
+        if (inAttackRange)
         {
             if (Time.time >= lastAttackTime + attackCooldown)
             {
@@ -49,6 +64,13 @@ public class Enemy : MonoBehaviour, IDamageable
     private IEnumerator AttackWithDelay()
     {
         isAttacking = true;
+
+        // Запуск анимации атаки
+        if (animator != null)
+        {
+            animator.SetTrigger("Attack");
+        }
+
         yield return new WaitForSeconds(attackDelay);
         Attack();
         lastAttackTime = Time.time;
