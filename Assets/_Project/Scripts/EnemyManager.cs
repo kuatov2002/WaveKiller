@@ -1,10 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class EnemyData
+{
+    public GameObject prefab;
+    public int cost;
+}
+
 public class EnemyManager : MonoBehaviour
 {
     [Header("Enemies")]
-    public List<GameObject> enemyPrefabs = new List<GameObject>(); // Сюда перетащить префабы врагов в инспекторе
+    public List<EnemyData> enemies = new(); // Теперь каждая запись содержит префаб + стоимость
+    public int money = 100; // начальные деньги (можно настроить)
 
     [Header("Raycast / Placement")]
     public LayerMask placementMask = ~0;
@@ -20,12 +28,12 @@ public class EnemyManager : MonoBehaviour
     public float gizmoRadius = 0.4f;
 
     private int selectedEnemyIndex = 0;
-    private List<Vector3> clickedPositions = new List<Vector3>();
+    private List<Vector3> clickedPositions = new();
 
     void Update()
     {
         HandleEnemySelection();
-        
+
         if (Input.GetMouseButtonDown(0))
         {
             TryRegisterClick();
@@ -34,25 +42,32 @@ public class EnemyManager : MonoBehaviour
 
     void HandleEnemySelection()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && enemyPrefabs.Count > 0)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && enemies.Count > 0)
         {
             selectedEnemyIndex = 0;
-            Debug.Log($"[EnemyManager] Selected enemy: {enemyPrefabs[0].name}");
+            Debug.Log($"[EnemyManager] Selected enemy: {enemies[0].prefab.name} (Cost: {enemies[0].cost})");
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && enemyPrefabs.Count > 1)
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && enemies.Count > 1)
         {
             selectedEnemyIndex = 1;
-            Debug.Log($"[EnemyManager] Selected enemy: {enemyPrefabs[1].name}");
+            Debug.Log($"[EnemyManager] Selected enemy: {enemies[1].prefab.name} (Cost: {enemies[1].cost})");
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && enemyPrefabs.Count > 2)
+        else if (Input.GetKeyDown(KeyCode.Alpha3) && enemies.Count > 2)
         {
             selectedEnemyIndex = 2;
-            Debug.Log($"[EnemyManager] Selected enemy: {enemyPrefabs[2].name}");
+            Debug.Log($"[EnemyManager] Selected enemy: {enemies[2].prefab.name} (Cost: {enemies[2].cost})");
         }
     }
 
     void TryRegisterClick()
     {
+        int currentCost = enemies[selectedEnemyIndex].cost;
+        if (money < currentCost)
+        {
+            Debug.Log($"[EnemyManager] Not enough money to spawn {enemies[selectedEnemyIndex].prefab.name}. Need {currentCost}, have {money}.");
+            return;
+        }
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, 1000f, placementMask))
         {
@@ -60,10 +75,10 @@ public class EnemyManager : MonoBehaviour
             clickedPositions.Add(pos);
 
             // Спавним врага
-            GameObject enemy = Instantiate(enemyPrefabs[selectedEnemyIndex], pos, Quaternion.identity);
-            Debug.Log($"[EnemyManager] Spawned {enemy.name} at {pos}");
+            GameObject enemy = Instantiate(enemies[selectedEnemyIndex].prefab, pos, Quaternion.identity);
+            SpendMoney(currentCost);
+            Debug.Log($"[EnemyManager] Spawned {enemy.name} at {pos}. Money left: {money}");
 
-            // Опционально: создаём маркер (можно убрать, если не нужен)
             CreateRuntimeMarker(pos);
         }
         else
@@ -96,17 +111,14 @@ public class EnemyManager : MonoBehaviour
         Destroy(marker, markerLifetime);
     }
 
-    void OnDrawGizmos()
+    public void AddMoney(int amount)
     {
-#if UNITY_EDITOR
-        if (!drawGizmos) return;
-        Gizmos.color = gizmoColor;
-        foreach (var p in clickedPositions)
-        {
-            Gizmos.DrawSphere(p, gizmoRadius);
-            Gizmos.DrawLine(p, p + Vector3.up * 0.4f);
-        }
-#endif
+        money += amount;
+    }
+
+    public void SpendMoney(int amount)
+    {
+        money -= amount;
     }
 
     public void ClearClickedPositions()

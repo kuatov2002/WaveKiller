@@ -8,7 +8,6 @@ public class RoundManager : MonoBehaviour
     public TextMeshProUGUI timer;
     
     [Space(10)]
-    public int money;
     public float timeToLose; // время в секундах до проигрыша
 
     private float currentTime;
@@ -16,16 +15,6 @@ public class RoundManager : MonoBehaviour
     private void Start()
     {
         ResetTimer();
-    }
-
-    public void AddMoney(int amount)
-    {
-        money += amount;
-    }
-
-    public void SpendMoney(int amount)
-    {
-        money = Mathf.Max(0, money - amount);
     }
 
     public void ResetTimer()

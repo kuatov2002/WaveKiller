@@ -18,6 +18,7 @@ public class ArcherAI : MonoBehaviour, IDamageable
 
     private Transform player;
     private RichAI richAI;
+    private AIDestinationSetter destinationSetter;
     private float lastShotTime;
 
     void Start()
@@ -32,6 +33,10 @@ public class ArcherAI : MonoBehaviour, IDamageable
         if (richAI == null)
             Debug.LogError("RichAI component missing!");
 
+        destinationSetter = GetComponent<AIDestinationSetter>();
+        if (destinationSetter != null)
+            destinationSetter.target = player;
+            
         if (arrowPrefab == null)
             Debug.LogError("Arrow prefab is not assigned!");
 
