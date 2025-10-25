@@ -32,6 +32,12 @@ public class MageAIController : MonoBehaviour
     public float aoeDamage = 25f;
     public float aoeCooldown = 5f;
 
+    [Header("Random Object Spawning")]
+    public GameObject randomObjectPrefab;           // Объект для спавна
+    public float randomSpawnInterval = 10f;         // Каждые N секунд
+    public float minSpawnDistance = 4f;             // Минимальное расстояние от мага
+    public float maxSpawnDistance = 18f;            // Максимальное расстояние от мага
+    
     // === Компоненты ===
     private RichAI richAI;
     private AIDestinationSetter destinationSetter;
@@ -41,6 +47,7 @@ public class MageAIController : MonoBehaviour
     // === Внутренние состояния ===
     private float lastAttackTime;
     private float lastAoeTime;
+    private float lastRandomSpawnTime;
     private bool isAttacking = false;
 
     void Start()
@@ -90,8 +97,29 @@ public class MageAIController : MonoBehaviour
         {
             HandleMovement();
         }
+        
+        TrySpawnRandomObject();
     }
 
+    void TrySpawnRandomObject()
+    {
+        if (randomObjectPrefab == null) return;
+        if (Time.time - lastRandomSpawnTime < randomSpawnInterval) return;
+
+        // Генерируем случайное направление в горизонтальной плоскости
+        Vector2 randomCircle = Random.insideUnitCircle;
+        Vector3 randomDirection = new Vector3(randomCircle.x, 0f, randomCircle.y).normalized;
+
+        // Случайное расстояние между min и max
+        float distance = Random.Range(minSpawnDistance, maxSpawnDistance);
+        Vector3 spawnPosition = transform.position + randomDirection * distance;
+
+        // Можно добавить проверку на проходимость через NavMesh или Physics.Raycast, если нужно
+        Instantiate(randomObjectPrefab, spawnPosition, Quaternion.identity);
+
+        lastRandomSpawnTime = Time.time;
+    }
+    
     void FindClosestEnemy()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius);

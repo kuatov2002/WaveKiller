@@ -52227,6 +52227,10 @@ MonoBehaviour:
   aoeKnockbackForce: 13
   aoeDamage: 5
   aoeCooldown: 3
+  randomObjectPrefab: {fileID: 7972597369805099812, guid: cb3fbfb741f1564448941617432e72fd, type: 3}
+  randomSpawnInterval: 5
+  minSpawnDistance: 4
+  maxSpawnDistance: 18
   animator: {fileID: 805300494}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
