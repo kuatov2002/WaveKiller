@@ -1,3 +1,4 @@
+using System.Collections;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 using Pathfinding;
@@ -49,6 +50,7 @@ public class MageAIController : MonoBehaviour
     private float lastAoeTime;
     private float lastRandomSpawnTime;
     private bool isAttacking = false;
+    private bool isRotatingToEnemy = false;
 
     void Start()
     {
@@ -178,12 +180,62 @@ public class MageAIController : MonoBehaviour
     void HandleFireballAttack()
     {
         if (Time.time - lastAttackTime < attackCooldown) return;
+        if (isRotatingToEnemy) return; // Не запускаем поворот дважды
 
         SetDestination(transform);
         richAI.canMove = false;
+        isAttacking = true;
+        isRotatingToEnemy = true;
+
+        // Запускаем плавный поворот
+        StartCoroutine(RotateTowardsEnemySmoothly());
+    }
+
+    IEnumerator RotateTowardsEnemySmoothly()
+    {
+        if (!IsEnemyValid()) 
+        {
+            isRotatingToEnemy = false;
+            isAttacking = false;
+            richAI.canMove = true;
+            yield break;
+        }
+
+        Vector3 targetDirection = closestEnemy.position - transform.position;
+        targetDirection.y = 0;
+        if (targetDirection.sqrMagnitude < 0.01f) 
+        {
+            // Если враг слишком близко — пропускаем поворот
+            FinishRotationAndAttack();
+            yield break;
+        }
+
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+        float rotationSpeed = rotateTowardsEnemy ? richAI.rotationSpeed : 360f; // Используем rotationSpeed из RichAI или задаём своё
+        if (rotationSpeed <= 0) rotationSpeed = 360f;
+
+        float angleDiff = Quaternion.Angle(transform.rotation, targetRotation);
+        float duration = angleDiff / rotationSpeed; // Время поворота в секундах
+
+        float elapsed = 0f;
+        Quaternion startRotation = transform.rotation;
+
+        while (elapsed < duration)
+        {
+            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.rotation = targetRotation; // Убедимся, что точно смотрим на цель
+        FinishRotationAndAttack();
+    }
+
+    void FinishRotationAndAttack()
+    {
+        isRotatingToEnemy = false;
         animator?.SetTrigger("Attack");
         lastAttackTime = Time.time;
-        isAttacking = true;
     }
 
     void HandleMovement()

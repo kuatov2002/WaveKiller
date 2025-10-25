@@ -52522,7 +52522,7 @@ MonoBehaviour:
   moveSpeed: 4
   stopDistance: 2
   rotateTowardsEnemy: 1
-  attackRange: 3
+  attackRange: 2
   attackAngle: 90
   damage: 10
   attackCooldown: 1.5

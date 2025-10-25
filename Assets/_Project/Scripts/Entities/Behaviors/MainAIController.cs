@@ -1,6 +1,7 @@
 using MoreMountains.Feedbacks;
 using UnityEngine;
 using Pathfinding;
+using System.Collections;
 
 public class MainAIController : MonoBehaviour
 {
@@ -12,9 +13,9 @@ public class MainAIController : MonoBehaviour
     public float detectionRadius = 30f;
 
     [Header("Movement")]
-    public float moveSpeed = 4f; // Будет применяться к RichAI
+    public float moveSpeed = 4f;
     public float stopDistance = 2f;
-    public bool rotateTowardsEnemy = true; // RichAI может сам это делать
+    public bool rotateTowardsEnemy = true;
 
     [Header("Attack")]
     public float attackRange = 3f;
@@ -31,6 +32,8 @@ public class MainAIController : MonoBehaviour
     // === Внутренние состояния ===
     private float lastAttackTime;
     private bool isAttacking = false;
+    private bool isRotatingToEnemy = false; // ← НОВОЕ
+
     void Start()
     {
         richAI = GetComponent<RichAI>();
@@ -46,9 +49,8 @@ public class MainAIController : MonoBehaviour
         if (animator == null)
             Debug.LogWarning("Animator not assigned on " + gameObject.name, this);
 
-        // Настройка RichAI
         richAI.maxSpeed = moveSpeed;
-        richAI.rotationSpeed = rotateTowardsEnemy ? richAI.rotationSpeed : 0f; // или отключи в инспекторе
+        // Не трогаем rotationSpeed здесь — будем управлять вручную при атаке
     }
 
     void Update()
@@ -57,48 +59,22 @@ public class MainAIController : MonoBehaviour
 
         if (closestEnemy == null || !IsEnemyValid())
         {
-            // Нет цели — остановиться
             SetDestination(transform);
             SetSpeed(0f);
             return;
         }
 
-        if (isAttacking)
-        {
-            // Ждём окончания атаки
+        if (isAttacking || isRotatingToEnemy)
             return;
-        }
 
         if (IsInAttackRange())
         {
             HandleAttack();
-            SetDestination(transform); // Остановиться у цели
+            SetDestination(transform);
         }
         else
         {
             HandleMovement();
-        }
-    }
-
-    void FindClosestEnemy()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius);
-        closestEnemy = null;
-        float minSqrDistance = float.MaxValue;
-        Vector3 myPos = transform.position;
-
-        foreach (var col in colliders)
-        {
-            if (col.CompareTag("Enemy"))
-            {
-                Transform enemyTransform = col.transform;
-                float sqrDist = (enemyTransform.position - myPos).sqrMagnitude;
-                if (sqrDist < minSqrDistance)
-                {
-                    minSqrDistance = sqrDist;
-                    closestEnemy = enemyTransform;
-                }
-            }
         }
     }
 
@@ -125,20 +101,98 @@ public class MainAIController : MonoBehaviour
         if (Time.time - lastAttackTime < attackCooldown) return;
 
         SetDestination(transform);
-        richAI.canMove = false; // Блокируем движение
+        richAI.canMove = false;
+        isAttacking = true;
+        isRotatingToEnemy = true;
+
+        StartCoroutine(RotateTowardsEnemySmoothly());
+    }
+
+    IEnumerator RotateTowardsEnemySmoothly()
+    {
+        if (!IsEnemyValid())
+        {
+            CancelRotation();
+            yield break;
+        }
+
+        Vector3 targetDirection = closestEnemy.position - transform.position;
+        targetDirection.y = 0;
+        if (targetDirection.sqrMagnitude < 0.01f)
+        {
+            // Враг слишком близко — сразу атакуем
+            FinishRotationAndAttack();
+            yield break;
+        }
+
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+
+        // Используем rotationSpeed из RichAI, если rotateTowardsEnemy == true, иначе задаём своё
+        float rotationSpeed = rotateTowardsEnemy && richAI.rotationSpeed > 0 
+            ? richAI.rotationSpeed 
+            : 360f; // градусов в секунду
+
+        float angleDiff = Quaternion.Angle(transform.rotation, targetRotation);
+        float duration = angleDiff / rotationSpeed;
+
+        Quaternion startRotation = transform.rotation;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.rotation = targetRotation;
+        FinishRotationAndAttack();
+    }
+
+    void FinishRotationAndAttack()
+    {
+        isRotatingToEnemy = false;
         animator?.SetTrigger("Attack");
         lastAttackTime = Time.time;
-        isAttacking = true;
+    }
+
+    void CancelRotation()
+    {
+        isRotatingToEnemy = false;
+        isAttacking = false;
+        richAI.canMove = true;
+    }
+
+    // ... остальные методы без изменений ...
+
+    void FindClosestEnemy()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius);
+        closestEnemy = null;
+        float minSqrDistance = float.MaxValue;
+        Vector3 myPos = transform.position;
+
+        foreach (var col in colliders)
+        {
+            if (col.CompareTag("Enemy"))
+            {
+                Transform enemyTransform = col.transform;
+                float sqrDist = (enemyTransform.position - myPos).sqrMagnitude;
+                if (sqrDist < minSqrDistance)
+                {
+                    minSqrDistance = sqrDist;
+                    closestEnemy = enemyTransform;
+                }
+            }
+        }
     }
 
     void HandleMovement()
     {
         if (!IsEnemyValid()) return;
 
-        // Устанавливаем цель для AIDestinationSetter
         SetDestination(closestEnemy);
 
-        // Проверяем, достаточно ли близко (учитывая stopDistance)
         float distance = Vector3.Distance(transform.position, closestEnemy.position);
         if (distance <= stopDistance)
         {
@@ -157,10 +211,7 @@ public class MainAIController : MonoBehaviour
 
     void SetSpeed(float speed)
     {
-        // RichAI использует maxSpeed, но аниматору передаём значение
         animator?.SetFloat("Speed", speed);
-        // Опционально: обновить maxSpeed (если нужно динамически менять)
-        // richAI.maxSpeed = speed;
     }
 
     public void ApplyDamage()
@@ -171,7 +222,7 @@ public class MainAIController : MonoBehaviour
         if (damageable != null)
         {
             damageable.TakeDamage(damage);
-            hitFeedback?.PlayFeedbacks(); // например, звук удара или частицы от AI
+            hitFeedback?.PlayFeedbacks();
         }
     }
 
