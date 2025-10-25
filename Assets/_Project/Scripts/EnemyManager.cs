@@ -12,7 +12,9 @@ public class EnemyData
 
 public class EnemyManager : MonoBehaviour
 {
+    [Header("References")]
     public TextMeshProUGUI moneyText;
+    public EnemiesListUI enemiesListUI;
     
     [Header("Enemies")]
     public List<EnemyData> enemies = new(); // Теперь каждая запись содержит префаб + стоимость
@@ -37,6 +39,12 @@ public class EnemyManager : MonoBehaviour
     private void Start()
     {
         moneyText.text = $"Money: {money}";
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            enemiesListUI.enemies[i].costText.SetText(enemies[i].cost.ToString());
+        }
+
+        UpdateVisuals();
     }
 
     void Update()
@@ -46,6 +54,14 @@ public class EnemyManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             TryRegisterClick();
+        }
+    }
+
+    private void UpdateVisuals()
+    {
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            enemiesListUI.enemies[i].background.color = i == selectedEnemyIndex ? Color.white : Color.black;
         }
     }
 
@@ -66,6 +82,8 @@ public class EnemyManager : MonoBehaviour
             selectedEnemyIndex = 2;
             Debug.Log($"[EnemyManager] Selected enemy: {enemies[2].prefab.name} (Cost: {enemies[2].cost})");
         }
+        
+        UpdateVisuals();
     }
 
     void TryRegisterClick()
