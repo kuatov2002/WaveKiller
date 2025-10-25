@@ -191,18 +191,20 @@ public class MageAIController : MonoBehaviour
     {
         if (!IsEnemyValid() || fireballPrefab == null || fireballSpawnPoint == null) return;
 
-        Vector3 directionToEnemy = (closestEnemy.position - fireballSpawnPoint.position).normalized;
-        directionToEnemy.y = 0; // летит строго горизонтально
+        // Направление — туда, куда смотрит маг (а не к врагу)
+        Vector3 direction = transform.forward;
+        direction.y = 0; // опционально: летит строго горизонтально
+        direction.Normalize();
 
-        // Вычисляем поворот, чтобы объект смотрел в направлении directionToEnemy
-        Quaternion fireballRotation = Quaternion.LookRotation(directionToEnemy);
+        // Устанавливаем поворот фаербола так, чтобы он смотрел в направлении полёта
+        Quaternion fireballRotation = Quaternion.LookRotation(direction);
 
         GameObject fb = Instantiate(fireballPrefab, fireballSpawnPoint.position, fireballRotation);
 
         Fireball fireball = fb.GetComponent<Fireball>();
         if (fireball != null)
         {
-            fireball.Initialize(directionToEnemy, fireballSpeed);
+            fireball.Initialize(direction, fireballSpeed);
             fireball.damage = fireballDamage;
         }
 
