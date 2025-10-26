@@ -10249,7 +10249,7 @@ MonoBehaviour:
   - prefab: {fileID: 7126260659877615997, guid: 0e0fe644469d87541abe525759b2350c, type: 3}
     cost: 25
     spawnCooldown: 2.5
-  money: 99999
+  money: 600
   placementMask:
     serializedVersion: 2
     m_Bits: 1

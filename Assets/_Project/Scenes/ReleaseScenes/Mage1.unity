@@ -10253,8 +10253,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b7528febc9a2994cb264eebc551c6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainCharacter
-  maxHp: 100
-  currentHp: 100
+  maxHp: 200
+  currentHp: 200
   hp: {fileID: 443734074}
 --- !u!136 &319885445
 CapsuleCollider:
@@ -19500,7 +19500,7 @@ MonoBehaviour:
   - prefab: {fileID: 7126260659877615997, guid: 0e0fe644469d87541abe525759b2350c, type: 3}
     cost: 25
     spawnCooldown: 2.5
-  money: 99999
+  money: 800
   placementMask:
     serializedVersion: 2
     m_Bits: 1
