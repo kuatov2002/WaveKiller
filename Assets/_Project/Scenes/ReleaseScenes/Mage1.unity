@@ -32080,8 +32080,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 1
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -67837,7 +67837,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -67863,8 +67863,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2041397491}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.029663261, y: -0.69333696, z: 0.023697395, w: 0.7196127}
-  m_LocalPosition: {x: 1.5531988, y: 10.661261, z: -65.2298}
+  m_LocalRotation: {x: 0.32401088, y: 0.6297061, z: -0.32571182, w: 0.6264176}
+  m_LocalPosition: {x: -3.7337346, y: 21.851921, z: -65.41349}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
