@@ -11010,8 +11010,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b7528febc9a2994cb264eebc551c6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainCharacter
-  maxHp: 200
-  currentHp: 200
+  maxHp: 120
+  currentHp: 120
   hp: {fileID: 443734074}
 --- !u!136 &319885445
 CapsuleCollider:
@@ -15556,7 +15556,7 @@ GameObject:
   - component: {fileID: 439134952}
   - component: {fileID: 439134955}
   - component: {fileID: 439134954}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32119,7 +32119,7 @@ Transform:
   m_GameObject: {fileID: 934057845}
   serializedVersion: 2
   m_LocalRotation: {x: 0.32401088, y: 0.6297061, z: -0.32571182, w: 0.6264176}
-  m_LocalPosition: {x: -3.733736, y: 22.283922, z: -65.4136}
+  m_LocalPosition: {x: -3.7337356, y: 22.283922, z: -65.41349}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -67607,7 +67607,7 @@ Transform:
   m_GameObject: {fileID: 2041397491}
   serializedVersion: 2
   m_LocalRotation: {x: 0.32401088, y: 0.6297061, z: -0.32571182, w: 0.6264176}
-  m_LocalPosition: {x: -3.733736, y: 22.283922, z: -65.4136}
+  m_LocalPosition: {x: -3.7337356, y: 22.283922, z: -65.41349}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
