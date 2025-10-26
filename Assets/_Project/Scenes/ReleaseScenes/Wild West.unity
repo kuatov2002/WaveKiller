@@ -8833,6 +8833,7 @@ GameObject:
   - component: {fileID: 549248328}
   - component: {fileID: 549248327}
   - component: {fileID: 549248329}
+  - component: {fileID: 549248330}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -8901,6 +8902,19 @@ MonoBehaviour:
   indicatorPrefab: {fileID: 7804542504622789442, guid: 18bc40181d8bc884fbef2dd2b08f96e1, type: 3}
   spawnInterval: 3
   heightOffset: 25
+--- !u!114 &549248330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549248326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cf6a6935b4ecc4cbb77f665a47d898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
+  sceneName: SampleScene
 --- !u!1 &556801173
 GameObject:
   m_ObjectHideFlags: 0

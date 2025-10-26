@@ -236,6 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3cf6a6935b4ecc4cbb77f665a47d898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
+  sceneName: 
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,7 +672,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: archerCharacter
+          m_StringArgument: Wild West
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &831004799
@@ -853,7 +854,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Mage
+          m_StringArgument: Mage1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &864103708
@@ -1396,7 +1397,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: weakestCharacter
+          m_StringArgument: Castle
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1695989439
