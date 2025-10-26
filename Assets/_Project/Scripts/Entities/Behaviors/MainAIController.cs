@@ -226,7 +226,7 @@ public class MainAIController : MonoBehaviour
         }
 
         // === Отскок всех врагов в радиусе ===
-        float knockbackRadius = 3f;      // Радиус действия отскока
+        float knockbackRadius = 1.5f;      // Радиус действия отскока
         float knockbackForce = 8f;      // Сила отбрасывания
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, knockbackRadius);
