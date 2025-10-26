@@ -7,7 +7,7 @@ public class MainCharacter : MonoBehaviour, IDamageable
     public float maxHp = 100f;
     public float currentHp = 100f;
 
-    public Image hp;
+    public Slider hp;
     private void Start()
     {
         currentHp = maxHp;
@@ -26,7 +26,7 @@ public class MainCharacter : MonoBehaviour, IDamageable
 
     private void UpdateHpBar()
     {
-        hp.fillAmount = currentHp / maxHp;
+        hp.value = currentHp / maxHp;
     }
     
     private void Die()
