@@ -224,6 +224,29 @@ public class MainAIController : MonoBehaviour
             damageable.TakeDamage(damage);
             hitFeedback?.PlayFeedbacks();
         }
+
+        // === Отскок всех врагов в радиусе ===
+        float knockbackRadius = 3f;      // Радиус действия отскока
+        float knockbackForce = 8f;      // Сила отбрасывания
+
+        Collider[] colliders = Physics.OverlapSphere(transform.position, knockbackRadius);
+        foreach (Collider col in colliders)
+        {
+            if (col.CompareTag("Enemy"))
+            {
+                Rigidbody rb = col.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    Vector3 direction = (col.transform.position - transform.position).normalized;
+                    // Убедимся, что направление горизонтальное (игнорируем Y)
+                    direction.y = 0;
+                    if (direction.sqrMagnitude > 0.01f) // избегаем нулевого вектора
+                    {
+                        rb.AddForce(direction * knockbackForce, ForceMode.Impulse);
+                    }
+                }
+            }
+        }
     }
 
     public void OnAttackAnimationFinished()
