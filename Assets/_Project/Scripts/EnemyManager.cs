@@ -27,8 +27,10 @@ public class EnemyManager : MonoBehaviour
     private int selectedEnemyIndex = 0;
     private Dictionary<GameObject, float> lastSpawnTimeByPrefab = new();
 
+    private Transform player;
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         moneyText.text = $"Money: {money}";
         for (int i = 0; i < enemies.Count; i++)
         {
@@ -136,11 +138,28 @@ public class EnemyManager : MonoBehaviour
         {
             Vector3 pos = hit.point;
 
+            // Проверка расстояния по оси XZ от игрока
+            if (player == null)
+            {
+                Debug.LogError("[EnemyManager] Player not found!");
+                return;
+            }
+
+            Vector3 playerXZ = new Vector3(player.position.x, 0, player.position.z);
+            Vector3 spawnXZ = new Vector3(pos.x, 0, pos.z);
+            float distanceXZ = Vector3.Distance(playerXZ, spawnXZ);
+
+            if (distanceXZ < 4f)
+            {
+                Debug.Log($"[EnemyManager] Spawn too close to player (XZ distance: {distanceXZ:F2} < 4). Spawn denied.");
+                return;
+            }
+
             // Спавним врага
             GameObject enemy = Instantiate(prefab, pos, Quaternion.identity);
             SpendMoney(selectedEnemy.cost);
-            lastSpawnTimeByPrefab[prefab] = Time.time; // обновляем время последнего спавна именно для этого префаба
-            Debug.Log($"[EnemyManager] Spawned {enemy.name} at {pos}. Money left: {money}");
+            lastSpawnTimeByPrefab[prefab] = Time.time;
+            Debug.Log($"[EnemyManager] Spawned {enemy.name} at {pos}. XZ distance from player: {distanceXZ:F2}. Money left: {money}");
         }
         else
         {

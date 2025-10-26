@@ -28,7 +28,7 @@ public class Dynamite : MonoBehaviour
                 IDamageable damageable = col.GetComponent<IDamageable>();
                 if (damageable != null)
                 {
-                    damageable.TakeDamage(150f);
+                    damageable.TakeDamage(60f);
                 }
             }
             
