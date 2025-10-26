@@ -1,11 +1,8 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public string sceneName;
-    
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
@@ -13,9 +10,10 @@ public class SceneLoader : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(sceneName);
+            // Перезагружаем текущую сцену
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }
