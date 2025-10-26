@@ -12,6 +12,7 @@ public class RoundManager : MonoBehaviour
 
     private float currentTime;
 
+    private bool isEnded = false;
     private void Start()
     {
         ResetTimer();
@@ -46,6 +47,9 @@ public class RoundManager : MonoBehaviour
 
     private void OnTimeRanOut()
     {
+        if (isEnded) return;
+        isEnded = true;
+        StaticEvents.OnGameOver.Invoke(false);
         Debug.Log("Время вышло! Игра окончена.");
     }
 }

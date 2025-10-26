@@ -8,6 +8,8 @@ public class MainCharacter : MonoBehaviour, IDamageable
     public float currentHp = 100f;
 
     public Slider hp;
+    
+    private bool isDead = false;
     private void Start()
     {
         currentHp = maxHp;
@@ -31,6 +33,9 @@ public class MainCharacter : MonoBehaviour, IDamageable
     
     private void Die()
     {
+        if (isDead) return;
+        isDead = true;
+        StaticEvents.OnGameOver.Invoke(true);
         Debug.Log("я умер");
     }
 }
