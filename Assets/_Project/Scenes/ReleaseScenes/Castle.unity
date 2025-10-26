@@ -24409,7 +24409,7 @@ MonoBehaviour:
   money: 99999
   placementMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1
 --- !u!1001 &1555207050
 PrefabInstance:
   m_ObjectHideFlags: 0
