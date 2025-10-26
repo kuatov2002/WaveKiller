@@ -10,6 +10,7 @@ public class EnemiesListUI : MonoBehaviour
     {
         public TextMeshProUGUI costText;
         public Image background;
+        public Image cooldownFill; // ← новое поле для отображения кулдауна
     }
     
     public List<EnemySlot> enemies;

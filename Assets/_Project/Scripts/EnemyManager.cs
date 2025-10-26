@@ -8,6 +8,7 @@ public class EnemyData
 {
     public GameObject prefab;
     public int cost;
+    public float spawnCooldown = 0.5f; // индивидуальный кулдаун для этого типа врага
 }
 
 public class EnemyManager : MonoBehaviour
@@ -17,24 +18,14 @@ public class EnemyManager : MonoBehaviour
     public EnemiesListUI enemiesListUI;
     
     [Header("Enemies")]
-    public List<EnemyData> enemies = new(); // Теперь каждая запись содержит префаб + стоимость
-    public int money = 100; // начальные деньги (можно настроить)
+    public List<EnemyData> enemies = new();
+    public int money = 100;
 
     [Header("Raycast / Placement")]
     public LayerMask placementMask = ~0;
 
-    [Header("Marker (runtime)")]
-    public float markerLifetime = 3f;
-    public float markerScale = 0.35f;
-    public Color markerColor = new Color(1f, 0.2f, 0.2f, 1f);
-
-    [Header("Gizmos (editor)")]
-    public bool drawGizmos = true;
-    public Color gizmoColor = new Color(1f, 0.6f, 0.0f, 0.8f);
-    public float gizmoRadius = 0.4f;
-
     private int selectedEnemyIndex = 0;
-    private List<Vector3> clickedPositions = new();
+    private Dictionary<GameObject, float> lastSpawnTimeByPrefab = new();
 
     private void Start()
     {
@@ -44,16 +35,51 @@ public class EnemyManager : MonoBehaviour
             enemiesListUI.enemies[i].costText.SetText(enemies[i].cost.ToString());
         }
 
+        // Инициализируем словарь с прошлым временем для всех префабов
+        foreach (var enemy in enemies)
+        {
+            lastSpawnTimeByPrefab[enemy.prefab] = -999f;
+        }
+
         UpdateVisuals();
     }
 
     void Update()
     {
         HandleEnemySelection();
+        UpdateCooldownVisuals(); // ← добавь эту строку
 
         if (Input.GetMouseButtonDown(0))
         {
             TryRegisterClick();
+        }
+    }
+
+    void UpdateCooldownVisuals()
+    {
+        for (int i = 0; i < enemies.Count && i < enemiesListUI.enemies.Count; i++)
+        {
+            EnemyData enemyData = enemies[i];
+            EnemiesListUI.EnemySlot slot = enemiesListUI.enemies[i];
+        
+            float lastSpawn = lastSpawnTimeByPrefab[enemyData.prefab];
+            float timeSinceSpawn = Time.time - lastSpawn;
+            float cooldown = enemyData.spawnCooldown;
+
+            // Если кулдаун активен — отображаем прогресс
+            if (timeSinceSpawn < cooldown)
+            {
+                // fillAmount = сколько времени ОСТАЛОСЬ / полный кулдаун → но мы хотим "заполнять от 1 к 0"
+                // Чтобы визуально было: полный круг = кулдаун активен, пустой = готов
+                // Поэтому: fillAmount = (cooldown - timeSinceSpawn) / cooldown
+                slot.cooldownFill.fillAmount = (cooldown - timeSinceSpawn) / cooldown;
+                slot.cooldownFill.gameObject.SetActive(true);
+            }
+            else
+            {
+                slot.cooldownFill.fillAmount = 0f;
+                slot.cooldownFill.gameObject.SetActive(false); // можно скрыть, если не нужен пустой индикатор
+            }
         }
     }
 
@@ -88,10 +114,20 @@ public class EnemyManager : MonoBehaviour
 
     void TryRegisterClick()
     {
-        int currentCost = enemies[selectedEnemyIndex].cost;
-        if (money < currentCost)
+        EnemyData selectedEnemy = enemies[selectedEnemyIndex];
+        GameObject prefab = selectedEnemy.prefab;
+
+        // Проверка кулдауна для конкретного врага
+        float lastTime = lastSpawnTimeByPrefab[prefab];
+        if (Time.time - lastTime < selectedEnemy.spawnCooldown)
         {
-            Debug.Log($"[EnemyManager] Not enough money to spawn {enemies[selectedEnemyIndex].prefab.name}. Need {currentCost}, have {money}.");
+            Debug.Log($"[EnemyManager] Spawn for {prefab.name} is on cooldown.");
+            return;
+        }
+
+        if (money < selectedEnemy.cost)
+        {
+            Debug.Log($"[EnemyManager] Not enough money to spawn {prefab.name}. Need {selectedEnemy.cost}, have {money}.");
             return;
         }
 
@@ -99,43 +135,17 @@ public class EnemyManager : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, 1000f, placementMask))
         {
             Vector3 pos = hit.point;
-            clickedPositions.Add(pos);
 
             // Спавним врага
-            GameObject enemy = Instantiate(enemies[selectedEnemyIndex].prefab, pos, Quaternion.identity);
-            SpendMoney(currentCost);
+            GameObject enemy = Instantiate(prefab, pos, Quaternion.identity);
+            SpendMoney(selectedEnemy.cost);
+            lastSpawnTimeByPrefab[prefab] = Time.time; // обновляем время последнего спавна именно для этого префаба
             Debug.Log($"[EnemyManager] Spawned {enemy.name} at {pos}. Money left: {money}");
-
-            CreateRuntimeMarker(pos);
         }
         else
         {
             Debug.Log("[EnemyManager] Click did not hit placement mask.");
         }
-    }
-
-    void CreateRuntimeMarker(Vector3 pos)
-    {
-        GameObject marker = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        marker.name = "EM_Marker";
-        marker.transform.position = pos;
-        marker.transform.localScale = Vector3.one * markerScale;
-
-        var col = marker.GetComponent<Collider>();
-        if (col != null) Destroy(col);
-
-        var rend = marker.GetComponent<Renderer>();
-        if (rend != null)
-        {
-            Material mat = new Material(Shader.Find("Universal Render Pipeline/Lit"))
-            {
-                color = markerColor,
-                enableInstancing = true
-            };
-            rend.material = mat;
-        }
-
-        Destroy(marker, markerLifetime);
     }
 
     public void AddMoney(int amount)
@@ -148,10 +158,5 @@ public class EnemyManager : MonoBehaviour
     {
         money -= amount;
         moneyText.text = $"Money: {money}";
-    }
-
-    public void ClearClickedPositions()
-    {
-        clickedPositions.Clear();
     }
 }
