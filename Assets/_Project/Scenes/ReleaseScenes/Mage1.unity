@@ -19903,13 +19903,13 @@ MonoBehaviour:
   enemies:
   - prefab: {fileID: 7126260659877615997, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
     cost: 10
-    spawnCooldown: 0.8
+    spawnCooldown: 1
   - prefab: {fileID: 4001739007572971688, guid: d95e0f680aa21ba4a95600ba914d3791, type: 3}
-    cost: 15
-    spawnCooldown: 1.6
-  - prefab: {fileID: 7126260659877615997, guid: 0e0fe644469d87541abe525759b2350c, type: 3}
     cost: 25
-    spawnCooldown: 2.5
+    spawnCooldown: 2
+  - prefab: {fileID: 7126260659877615997, guid: 0e0fe644469d87541abe525759b2350c, type: 3}
+    cost: 40
+    spawnCooldown: 4
   money: 800
   placementMask:
     serializedVersion: 2
