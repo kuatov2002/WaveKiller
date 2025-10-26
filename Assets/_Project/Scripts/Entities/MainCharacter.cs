@@ -33,9 +33,10 @@ public class MainCharacter : MonoBehaviour, IDamageable
     
     private void Die()
     {
-        if (isDead) return;
+        if (isDead || StaticEvents.IsGameOver) return;
         isDead = true;
         StaticEvents.OnGameOver.Invoke(true);
+        StaticEvents.IsGameOver = true;
         Debug.Log("я умер");
     }
 }
