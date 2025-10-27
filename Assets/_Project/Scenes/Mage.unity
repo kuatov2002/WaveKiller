@@ -5832,10 +5832,13 @@ MonoBehaviour:
   enemies:
   - costText: {fileID: 885617577}
     background: {fileID: 1889404215}
+    cooldownFill: {fileID: 0}
   - costText: {fileID: 715451317}
     background: {fileID: 968748626}
+    cooldownFill: {fileID: 0}
   - costText: {fileID: 639017341}
     background: {fileID: 959088790}
+    cooldownFill: {fileID: 0}
 --- !u!114 &263521485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20252,6 +20255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 806690334}
   - component: {fileID: 806690333}
+  - component: {fileID: 806690335}
   m_Layer: 0
   m_Name: RoundManager
   m_TagString: Untagged
@@ -20288,6 +20292,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &806690335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806690332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7a567f5014651646931f3174e1a61f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IdosCoinsFinish
 --- !u!1 &807068502
 GameObject:
   m_ObjectHideFlags: 0
@@ -32989,20 +33005,17 @@ MonoBehaviour:
   enemies:
   - prefab: {fileID: 7126260659877615997, guid: 05ccfd078580bab4f9d7fd93b0de62b7, type: 3}
     cost: 10
+    spawnCooldown: 0.5
   - prefab: {fileID: 4001739007572971688, guid: d95e0f680aa21ba4a95600ba914d3791, type: 3}
     cost: 15
+    spawnCooldown: 0.5
   - prefab: {fileID: 7126260659877615997, guid: 0e0fe644469d87541abe525759b2350c, type: 3}
     cost: 25
+    spawnCooldown: 0.5
   money: 99999
   placementMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  markerLifetime: 3
-  markerScale: 0.35
-  markerColor: {r: 1, g: 0.2, b: 0.2, a: 1}
-  drawGizmos: 1
-  gizmoColor: {r: 1, g: 0.6, b: 0, a: 0.8}
-  gizmoRadius: 0.4
 --- !u!1 &1374751482
 GameObject:
   m_ObjectHideFlags: 0
@@ -52106,7 +52119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainCharacter
   maxHp: 100
   currentHp: 100
-  hp: {fileID: 2042817398}
+  hp: {fileID: 0}
 --- !u!114 &6508550501183087761
 MonoBehaviour:
   m_ObjectHideFlags: 0

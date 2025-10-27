@@ -13838,6 +13838,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1355067093}
   - component: {fileID: 1355067094}
+  - component: {fileID: 1355067095}
   m_Layer: 0
   m_Name: RoundManager
   m_TagString: Untagged
@@ -13874,6 +13875,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoundManager
   timer: {fileID: 861359883}
   timeToLose: 90
+--- !u!114 &1355067095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355067092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9983b205c7083a445a48ce6a102e42f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IdosCoinsStart
 --- !u!1001 &1365223777
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,14 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Project/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
-    path: Assets/_Project/Scenes/ReleaseScenes/Wild West.unity
-    guid: 5aebc71fd2b4fdf42957e933530e37b7
+    path: Assets/IDosGamesSDK/Scenes/Login.unity
+    guid: 2be892a07374bf84eb51d093e6d34cb0
   - enabled: 1
     path: Assets/_Project/Scenes/ReleaseScenes/Castle.unity
     guid: 8aee462f08ffdde48854198adeb25132
+  - enabled: 1
+    path: Assets/_Project/Scenes/ReleaseScenes/Wild West.unity
+    guid: 5aebc71fd2b4fdf42957e933530e37b7
   - enabled: 1
     path: Assets/_Project/Scenes/ReleaseScenes/Mage1.unity
     guid: 28b07a2f21867ac4fb8727a547abbf29
