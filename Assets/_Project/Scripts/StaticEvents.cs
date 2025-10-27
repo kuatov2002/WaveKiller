@@ -22,12 +22,25 @@ public static class StaticEvents
 
     public static void GiveReward()
     {
-        // Вычисляем оставшееся время как float
         float remaining = Mathf.Max(0f, 360f - time);
+        int reward = Mathf.FloorToInt(remaining);
 
-        // Округляем в int — можно FloorToInt, RoundToInt или CeilToInt в зависимости от желаемого поведения.
-        int reward = Mathf.FloorToInt(remaining); // например, округляем вниз
+        ClaimRewardSystem.ClaimCoinReward(reward, 0);
+        UserDataService.UpdateCustomUserData("lastRaceTime", time);
+        UserDataService.UpdateCustomUserData("lastRaceCoins", reward);
 
-        ClaimRewardSystem.ClaimCoinReward(reward, 1);
+        // Получаем текущий лучший результат
+        string bestTimeStr = UserDataService.GetCachedCustomUserData("bestRaceTime");
+        float bestTime = float.MaxValue;
+
+        if (!string.IsNullOrEmpty(bestTimeStr) && float.TryParse(bestTimeStr, out float parsedBest))
+        {
+            bestTime = parsedBest;
+        }
+
+        // Новый лучший результат — минимальное из старого и текущего
+        float newBest = Mathf.Min(bestTime, time);
+
+        UserDataService.UpdateCustomUserData("bestRaceTime", newBest);
     }
 }

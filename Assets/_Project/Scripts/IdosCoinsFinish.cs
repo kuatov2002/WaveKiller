@@ -1,4 +1,5 @@
 using System.Globalization;
+using IDosGames;
 using TMPro;
 using UnityEngine;
 
@@ -20,20 +21,51 @@ public class IdosCoinsFinish : MonoBehaviour
     {
         if (!isWin) return;
         
-        float seconds = StaticEvents.EndTimer();
-        string formattedTime = FormatTime(seconds);
-        
-        float remaining = Mathf.Max(0f, 360f - StaticEvents.time);
+        float currentTime = StaticEvents.EndTimer();
+        string formattedCurrentTime = FormatTime(currentTime);
 
-        // Округляем в int — можно FloorToInt, RoundToInt или CeilToInt в зависимости от желаемого поведения.
-        int reward = Mathf.FloorToInt(remaining);
-        
-        timeText.SetText("Your race time is " + formattedTime+"\n"+"You won " + reward + " coins");
+        // Получаем текущий рекорд
+        string bestTimeStr = UserDataService.GetCachedCustomUserData("bestRaceTime");
+        float bestTime = float.MaxValue;
+
+        if (!string.IsNullOrEmpty(bestTimeStr) && float.TryParse(bestTimeStr, out float parsedBest))
+        {
+            bestTime = parsedBest;
+        }
+
+        // Проверяем, побит ли рекорд
+        bool isNewRecord = currentTime < bestTime;
+
+        // Обновляем рекорд через StaticEvents (он сам обновит данные)
         StaticEvents.GiveReward();
+
+        // После обновления получаем актуальный рекорд (на случай, если он только что установлен)
+        bestTimeStr = UserDataService.GetCachedCustomUserData("bestRaceTime");
+        if (!string.IsNullOrEmpty(bestTimeStr) && float.TryParse(bestTimeStr, out float updatedBest))
+        {
+            bestTime = updatedBest;
+        }
+
+        string formattedBestTime = FormatTime(bestTime);
+
+        float remaining = Mathf.Max(0f, 360f - currentTime);
+        int reward = Mathf.FloorToInt(remaining);
+
+        string recordMessage = isNewRecord ? "\n<b>New Record!</b>" : $"\nBest time: {formattedBestTime}";
+
+        timeText.SetText(
+            $"Your race time is {formattedCurrentTime}\n" +
+            $"You won {reward} coins" +
+            recordMessage
+        );
     }
 
     private string FormatTime(float totalSeconds)
     {
+        // Защита от некорректных значений (например, float.MaxValue)
+        if (totalSeconds >= 3600f) // больше часа — не отображаем
+            return "--:--";
+
         int totalSecondsInt = Mathf.FloorToInt(totalSeconds);
         int minutes = totalSecondsInt / 60;
         int seconds = totalSecondsInt % 60;
