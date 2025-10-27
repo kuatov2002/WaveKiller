@@ -37,6 +37,7 @@ public class MainCharacter : MonoBehaviour, IDamageable
         isDead = true;
         StaticEvents.OnGameOver.Invoke(true);
         StaticEvents.IsGameOver = true;
-        Debug.Log("я умер");
+        
+        Destroy(gameObject, 0.2f);
     }
 }
