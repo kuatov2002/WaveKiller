@@ -30,17 +30,12 @@ public static class StaticEvents
         UserDataService.UpdateCustomUserData("lastRaceCoins", reward);
 
         // Получаем текущий лучший результат
+        float currentBest = float.MaxValue;
         string bestTimeStr = UserDataService.GetCachedCustomUserData("bestRaceTime");
-        float bestTime = float.MaxValue;
+        if (!string.IsNullOrEmpty(bestTimeStr) && float.TryParse(bestTimeStr, out float parsed))
+            currentBest = parsed;
 
-        if (!string.IsNullOrEmpty(bestTimeStr) && float.TryParse(bestTimeStr, out float parsedBest))
-        {
-            bestTime = parsedBest;
-        }
-
-        // Новый лучший результат — минимальное из старого и текущего
-        float newBest = Mathf.Min(bestTime, time);
-
+        float newBest = Mathf.Min(currentBest, time);
         UserDataService.UpdateCustomUserData("bestRaceTime", newBest);
     }
 }

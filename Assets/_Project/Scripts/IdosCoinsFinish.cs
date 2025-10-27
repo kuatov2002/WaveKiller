@@ -20,33 +20,23 @@ public class IdosCoinsFinish : MonoBehaviour
     public void Finish(bool isWin)
     {
         if (!isWin) return;
-        
+    
         float currentTime = StaticEvents.EndTimer();
         string formattedCurrentTime = FormatTime(currentTime);
 
-        // Получаем текущий рекорд
         string bestTimeStr = UserDataService.GetCachedCustomUserData("bestRaceTime");
         float bestTime = float.MaxValue;
-
         if (!string.IsNullOrEmpty(bestTimeStr) && float.TryParse(bestTimeStr, out float parsedBest))
-        {
             bestTime = parsedBest;
-        }
 
-        // Проверяем, побит ли рекорд
         bool isNewRecord = currentTime < bestTime;
+        float newBest = isNewRecord ? currentTime : bestTime; // актуальный рекорд
 
-        // Обновляем рекорд через StaticEvents (он сам обновит данные)
-        StaticEvents.GiveReward();
+        // Обновляем данные (асинхронно)
+        StaticEvents.GiveReward(); // ← он сам пересчитает newBest, но мы уже знаем его
 
-        // После обновления получаем актуальный рекорд (на случай, если он только что установлен)
-        bestTimeStr = UserDataService.GetCachedCustomUserData("bestRaceTime");
-        if (!string.IsNullOrEmpty(bestTimeStr) && float.TryParse(bestTimeStr, out float updatedBest))
-        {
-            bestTime = updatedBest;
-        }
-
-        string formattedBestTime = FormatTime(bestTime);
+        // Используем ЛОКАЛЬНОЕ значение newBest для отображения!
+        string formattedBestTime = FormatTime(newBest);
 
         float remaining = Mathf.Max(0f, 360f - currentTime);
         int reward = Mathf.FloorToInt(remaining);
