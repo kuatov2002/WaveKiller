@@ -10916,9 +10916,9 @@ MonoBehaviour:
   aoeDamage: 5
   aoeCooldown: 3
   randomObjectPrefab: {fileID: 7972597369805099812, guid: cb3fbfb741f1564448941617432e72fd, type: 3}
-  randomSpawnInterval: 7
-  minSpawnDistance: 6
-  maxSpawnDistance: 13
+  randomSpawnInterval: 5
+  minSpawnDistance: 5
+  maxSpawnDistance: 10
   animator: {fileID: 1611488059}
 --- !u!114 &319885441
 MonoBehaviour:

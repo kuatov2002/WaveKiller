@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using IDosGames;
 using UnityEngine;
 
@@ -26,16 +27,19 @@ public static class StaticEvents
         int reward = Mathf.FloorToInt(remaining);
 
         ClaimRewardSystem.ClaimCoinReward(reward, 0);
-        UserDataService.UpdateCustomUserData("lastRaceTime", time);
-        UserDataService.UpdateCustomUserData("lastRaceCoins", reward);
+        UserDataService.UpdateCustomUserData("lastRaceTime", time.ToString(CultureInfo.InvariantCulture));
+        UserDataService.UpdateCustomUserData("lastRaceCoins", reward.ToString(CultureInfo.InvariantCulture));
 
         // Получаем текущий лучший результат
         float currentBest = float.MaxValue;
         string bestTimeStr = UserDataService.GetCachedCustomUserData("bestRaceTime");
-        if (!string.IsNullOrEmpty(bestTimeStr) && float.TryParse(bestTimeStr, out float parsed))
+        if (!string.IsNullOrEmpty(bestTimeStr) && 
+            float.TryParse(bestTimeStr, NumberStyles.Float, CultureInfo.InvariantCulture, out float parsed))
+        {
             currentBest = parsed;
+        }
 
         float newBest = Mathf.Min(currentBest, time);
-        UserDataService.UpdateCustomUserData("bestRaceTime", newBest);
+        UserDataService.UpdateCustomUserData("bestRaceTime", newBest.ToString(CultureInfo.InvariantCulture));
     }
 }

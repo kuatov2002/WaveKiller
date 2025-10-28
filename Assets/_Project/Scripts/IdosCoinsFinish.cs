@@ -26,22 +26,28 @@ public class IdosCoinsFinish : MonoBehaviour
 
         string bestTimeStr = UserDataService.GetCachedCustomUserData("bestRaceTime");
         float bestTime = float.MaxValue;
-        if (!string.IsNullOrEmpty(bestTimeStr) && float.TryParse(bestTimeStr, out float parsedBest))
+
+        // 🔹 Используем InvariantCulture для согласованности с записью
+        if (!string.IsNullOrEmpty(bestTimeStr) && 
+            float.TryParse(bestTimeStr, NumberStyles.Float, CultureInfo.InvariantCulture, out float parsedBest))
+        {
             bestTime = parsedBest;
+        }
 
         bool isNewRecord = currentTime < bestTime;
-        float newBest = isNewRecord ? currentTime : bestTime; // актуальный рекорд
+        float newBest = isNewRecord ? currentTime : bestTime;
 
-        // Обновляем данные (асинхронно)
-        StaticEvents.GiveReward(); // ← он сам пересчитает newBest, но мы уже знаем его
+        // Обновляем данные на сервере
+        StaticEvents.GiveReward(); // ← он пересчитает то же самое (если логика совпадает)
 
-        // Используем ЛОКАЛЬНОЕ значение newBest для отображения!
+        // Отображаем на основе наших локальных вычислений (согласованных с сохранением)
         string formattedBestTime = FormatTime(newBest);
-
         float remaining = Mathf.Max(0f, 360f - currentTime);
         int reward = Mathf.FloorToInt(remaining);
 
-        string recordMessage = isNewRecord ? "\n<b>New Record!</b>" : $"\nBest time: {formattedBestTime}";
+        string recordMessage = isNewRecord 
+            ? "\n<b>New Record!</b>" 
+            : $"\nBest time: {formattedBestTime}";
 
         timeText.SetText(
             $"Your race time is {formattedCurrentTime}\n" +
@@ -52,8 +58,7 @@ public class IdosCoinsFinish : MonoBehaviour
 
     private string FormatTime(float totalSeconds)
     {
-        // Защита от некорректных значений (например, float.MaxValue)
-        if (totalSeconds >= 3600f) // больше часа — не отображаем
+        if (totalSeconds <= 0f || totalSeconds >= 3600f)
             return "--:--";
 
         int totalSecondsInt = Mathf.FloorToInt(totalSeconds);
