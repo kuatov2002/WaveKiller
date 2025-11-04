@@ -247,7 +247,7 @@ namespace IDosGames
         {
             _playerDataRaw.TryGetValue(dataKey, out string data);
 
-            return $"{data}";
+            return data;//""
         }
 
         public static SkinCatalogItem GetCachedSkinItem(string itemID)
@@ -466,7 +466,7 @@ namespace IDosGames
             {
                 if (property.Value is JValue)
                 {
-                    // Если значение - JValue, добавляем его в Dictionary
+                    // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - JValue, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ Dictionary
                     result[property.Name] = ((JValue)property.Value).Value?.ToString();
                 }
                 else if (property.Value is JObject)

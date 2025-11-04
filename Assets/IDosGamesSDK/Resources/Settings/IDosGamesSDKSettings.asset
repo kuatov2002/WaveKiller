@@ -31,5 +31,5 @@ MonoBehaviour:
   _marketplaceEnabled: 1
   _cryptoWalletEnabled: 1
   _developerSecretKey: T2JQWOQ9S5C36E4033UG46LGLHXKRKHWD237CE4O8UU77KAYQP
-  WebGLBuildPath: C:\Users\chann\WaveKiller\builds\idos\0.1.2\Build
+  WebGLBuildPath: C:\Users\chann\WaveKiller\builds\idos\valueNullfix\Build
   ClearDirectory: 1
